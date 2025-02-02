@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "automerge": true,
   "major": {
@@ -12,12 +12,14 @@
   "rangeStrategy": "pin",
   "packageRules": [
     {
-      "packagePatterns": "^@khulnasoft",
       "groupName": "@khulnasoft",
-      "schedule": "after 2am and before 4am"
+      "schedule": "after 2am and before 4am",
+      "matchPackageNames": [
+        "/^@khulnasoft/"
+      ]
     },
     {
-      "packageNames": [
+      "matchPackageNames": [
         "bin-up",
         "check-dependencies",
         "check-more-types",
@@ -36,31 +38,39 @@
       "schedule": "after 2am and before 4am"
     },
     {
-      "packageNames": "node",
+      "matchPackageNames": "node",
       "enabled": false
     },
     {
-      "packagePatterns": "^@types",
       "groupName": "@types",
-      "schedule": "before 3am on Monday"
+      "schedule": "before 3am on Monday",
+      "matchPackageNames": [
+        "/^@types/"
+      ]
     },
     {
-      "packagePatterns": "^sinon",
       "groupName": "sinon",
-      "schedule": "before 3am on Sunday"
+      "schedule": "before 3am on Sunday",
+      "matchPackageNames": [
+        "/^sinon/"
+      ]
     },
     {
-      "packagePatterns": "^gulp",
       "groupName": "gulp",
-      "schedule": "before 3am on Monday"
+      "schedule": "before 3am on Monday",
+      "matchPackageNames": [
+        "/^gulp/"
+      ]
     },
     {
-      "packagePatterns": "^eslint",
       "groupName": "eslint",
-      "schedule": "before 3am on Monday"
+      "schedule": "before 3am on Monday",
+      "matchPackageNames": [
+        "/^eslint/"
+      ]
     },
     {
-      "packageNames": [
+      "matchPackageNames": [
         "typescript",
         "ts-node",
         "tslint-config-standard"
@@ -73,8 +83,8 @@
     "type: dependencies",
     "renovate"
   ],
-  "commitMessage": "{{semanticPrefix}}Update {{depName}} to {{newVersion}} 🌟",
-  "prTitle": "{{semanticPrefix}}{{#if isPin}}Pin{{else}}Update{{/if}} dependency {{depName}} to version {{#if isRange}}{{newVersion}}{{else}}{{#if isMajor}}{{newVersionMajor}}.x{{else}}{{newVersion}}{{/if}}{{/if}} 🌟",
+  "commitMessage": "{{#if semanticCommitType}}{{semanticCommitType}}{{#if semanticCommitScope}}({{semanticCommitScope}}){{/if}}: {{/if}}Update {{depName}} to {{newVersion}} 🌟",
+  "prTitle": "{{#if semanticCommitType}}{{semanticCommitType}}{{#if semanticCommitScope}}({{semanticCommitScope}}){{/if}}: {{/if}}{{#if isPin}}Pin{{else}}Update{{/if}} dependency {{depName}} to version {{#if isRange}}{{newVersion}}{{else}}{{#if isMajor}}{{newMajor}}.x{{else}}{{newVersion}}{{/if}}{{/if}} 🌟",
   "prHourlyLimit": 1,
   "prConcurrentLimit": 1,
   "updateNotScheduled": false,
@@ -82,5 +92,5 @@
   "schedule": [
     "before 3am on the first day of the month"
   ],
-  "masterIssue": true
+  "dependencyDashboard": true
 }
